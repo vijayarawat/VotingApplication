@@ -48,6 +48,8 @@ POST /candidates : Add a new candidate (Admin only) <br>
 POST /candidates/:candidateId : Update a candidate by ID (Admin only) <br>
 POST /candidates/:candidateId : Delete a candidate by ID (Admin only) <br>
 
+
+# Project Architecture
 ![Project Architecture](assets/architecture.png)
 
 
