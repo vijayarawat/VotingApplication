@@ -19,7 +19,7 @@ This is a backend application for a voting system where users can vote for candi
 
 ## Installation
 
-1. Clone the repository:
+1. Clone the repository:<br>
    git clone https://github.com/vijayarawat/VotingApplication.git <br>
    cd voting_app <br>
 2. Install dependencies: <br>
