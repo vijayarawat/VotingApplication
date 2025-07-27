@@ -100,4 +100,67 @@ router.delete('/:candidateId',jwtAuthMiddleware, async(req,res)=>{
         res.status(500).json({error: "Internal Server Error"});
     }
 })
+
+
+// Lets start voting
+router.post('/vote/:candidateId', jwtAuthMiddleware, async(req,res)=>{
+    //No admin can vote
+    //User can vote only once
+    //When user votes the count should be added to the candidate table
+
+
+
+    try{
+        const candidateId = req.params.candidateId
+        const userId = req.jwtPayload.id
+        const candidate = await Candidate.findById(candidateId)
+        if(!candidate)
+            return res.status(400).json({message:"Candidate not found"})
+
+        const user = await User.findById(userId)
+        if(!user)
+            return res.status(400).json({message:"User not found"})
+        if(user.isVoted)
+            return res.status(400).json({message:"User already voted"})
+        if(user.rol=="admin")
+            return res.status(400).json({message:"Admin can not vote"})
+
+        candidate.votes.push({user:userId})
+        candidate.voteCount++
+        candidate.save()
+
+        user.isVoted = true
+        user.save()
+
+        res.status(200).json({message:"voted successfully"})
+
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({message:"Internal Server Error"})
+    }
+
+})
+
+// //Get vote coun
+//login via authentication token. Only signed up users can see the count
+router.get('/vote/count', async(req,res)=>{
+    try{
+
+        const candidate = await Candidate.find().sort({voteCount:'desc'});
+        const voteRecord = candidate.map((data)=>{
+            return{
+                party:data.party,
+                count:data.voteCount
+            }
+        })
+        res.status(200).json(voteRecord);
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({message:"Internal Server Error"})
+
+    }
+})
+
 module.exports = router;
