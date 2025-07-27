@@ -3,12 +3,12 @@ const mongoose = require('mongoose')
 const candidateSchema = new mongoose.Schema({
 
     name:{
-        type:string,
+        type:String,
         required:true
     },
     party:{
-        type:string,
-        require:true
+        type:String,
+        required:true
     },
     age:{
         type:Number,
@@ -24,11 +24,15 @@ const candidateSchema = new mongoose.Schema({
             },
             votedAt:{
                 type:Date,
-                default : Date.now()
+                default : Date.now
             }
         }
-    ]
+    ],
+    voteCount:{
+        type:Number,
+        default:0
+    }
 })
 
-const Candidate = mongoose.model('Candidate', 'candidateSchema')
+const Candidate = mongoose.model('Candidate', candidateSchema); // fixed this line
 module.exports = Candidate

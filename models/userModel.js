@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
 
@@ -41,6 +42,35 @@ const userSchema = new mongoose.Schema({
         default:false
     }
 })
+
+
+//Creating the hashed password
+userSchema.pre('save',async function(next)
+{
+    const user = this
+    try{
+        //Generate slat
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(user.password,salt);
+        user.password = hashedPassword
+        next()
+    }
+    catch(err)
+    {
+        return next(err);
+    }
+})
+
+//compare password method used for login and other purpose 
+userSchema.methods.comparePassword = async function(candidatePassword){
+    try{
+        const isMatch = await bcrypt.compare(candidatePassword,this.password)
+        return isMatch;
+    }
+    catch(err){
+        throw err
+    }
+}
 
 
 const User = mongoose.model('User', userSchema)
