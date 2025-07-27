@@ -28,20 +28,23 @@ This is a backend application for a voting system where users can vote for candi
     node server.js
 
 # API Endpoints
-## Authentication
-POST /signup: Sign up a user
-POST /login: Login a user
+## User Authentication:
+POST /signup : Create a new user account <br>
+POST /login : Login to existing user account<br>
 
-## Candidates
-GET /candidates: Get the list of candidates
-POST /candidates: Add a new candidate (Admin only)
-PUT /candidates/:id: Update a candidate by ID (Admin only)
-DELETE /candidates/:id: Delete a candidate by ID (Admin only)
+## Voting: 
+GET  /candidates : Get the list of candidates <br>
+POST /vote/:candidateId : Vote for a specific candidate<br>
 
-## Voting
-GET /candidates/vote/count: Get the count of votes for each candidate
-POST /candidates/vote/:id: Vote for a candidate (User only)
+## Vote counts:
+GET /vote/counts :  Get the count of votes for each candidate sorted by their vote count <br>
+    
+## User Profile:
+GET /profile : Get the user profile details <br>
+PUT /profile/password : Change user  password <br>
 
-## User Profile
-GET /users/profile: Get user profile information
-PUT /users/profile/password: Change user password
+## Admin Candidate Management 
+POST /candidates : Add a new candidate (Admin only) <br>
+POST /candidates/:candidateId : Update a candidate by ID (Admin only) <br>
+POST /candidates/:candidateId : Delete a candidate by ID (Admin only) <br>
+
