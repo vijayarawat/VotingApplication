@@ -20,7 +20,7 @@ This is a backend application for a voting system where users can vote for candi
 ## Installation
 
 1. Clone the repository:
-   git clone https://github.com/Prince-1501/voting_app.git
+   git clone https://github.com/vijayarawat/VotingApplication.git
    cd voting_app
 2. Install dependencies:
    npm install
@@ -47,4 +47,7 @@ PUT /profile/password : Change user  password <br>
 POST /candidates : Add a new candidate (Admin only) <br>
 POST /candidates/:candidateId : Update a candidate by ID (Admin only) <br>
 POST /candidates/:candidateId : Delete a candidate by ID (Admin only) <br>
+
+![Project Architecture](assets/architecture.png)
+
 
